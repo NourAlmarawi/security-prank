@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width,initial-scale=1,viewport-fit=cover"
+		/>
+		<meta name="theme-color" content="#100609" />
+		<title>تنبيه أمني</title>
+		<style>
+			:root {
+				font-family:  Arial, sans-serif;
+				color: #f9e9eb;
+				background: #100609;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				margin: 0;
+				min-height: 100svh;
+				background: radial-gradient(
+					circle at 50% 15%,
+					#48101d 0%,
+					#19080d 45%,
+					#09080a 100%
+				);
+				display: grid;
+				place-items: center;
+				padding: 18px;
+			}
+			.panel {
+				width: min(100%, 460px);
+				border: 1px solid #a83146;
+				border-radius: 18px;
+				padding: 25px 20px;
+				background: rgba(20, 10, 15, 0.94);
+				box-shadow: 0 0 55px #ff234326;
+				text-align: center;
+			}
+			.siren {
+				width: 74px;
+				height: 74px;
+				border-radius: 50%;
+				border: 2px solid #ff415e;
+				background: #641326;
+				display: grid;
+				place-items: center;
+				margin: 0 auto 14px;
+				animation: pulse 1s infinite;
+			}
+			.siren svg {
+				width: 38px;
+				height: 38px;
+			}
+			h1 {
+				color: #ff5269;
+				font-size: clamp(25px, 7vw, 33px);
+				margin: 12px 0;
+			}
+			p {
+				line-height: 1.8;
+				color: #e5c7ce;
+			}
+			.eyebrow {
+				letter-spacing: 2px;
+				color: #ff8497;
+				font-size: 12px;
+				font-weight: bold;
+			}
+			.status {
+				border: 1px solid #71303d;
+				border-radius: 10px;
+				background: #2b111a;
+				padding: 13px;
+				text-align: right;
+				margin: 20px 0;
+			}
+			.status p {
+				margin: 4px 0;
+				font-size: 14px;
+			}
+			.dot {
+				display: inline-block;
+				width: 8px;
+				height: 8px;
+				background: #ff4b64;
+				border-radius: 50%;
+				margin-left: 7px;
+				animation: blink 0.6s infinite;
+			}
+			.bar {
+				height: 12px;
+				border-radius: 20px;
+				background: #4d202b;
+				overflow: hidden;
+				margin: 14px 0 5px;
+			}
+			.fill {
+				height: 100%;
+				width: 0;
+				background: linear-gradient(90deg, #b91738, #ff5269);
+				transition: width 0.3s;
+			}
+			.progress {
+				font-variant-numeric: tabular-nums;
+				color: #ff8fa0;
+				font-size: 13px;
+			}
+			.reveal {
+				display: none;
+				background: #102d24;
+				border: 1px solid #328e70;
+				border-radius: 12px;
+				padding: 18px;
+				margin-top: 18px;
+			}
+			.reveal h2 {
+				color: #78e5b3;
+				margin: 0;
+			}
+			.reveal p {
+				color: #d2f4e6;
+				margin-bottom: 0;
+			}
+			.simulation {
+				font-size: 11px;
+				color: #b79fa5;
+				margin-top: 17px;
+			}
+			.stop {
+				background: transparent;
+				border: 1px solid #87515b;
+				color: #f1d4db;
+				border-radius: 8px;
+				padding: 9px 15px;
+				cursor: pointer;
+				margin-top: 12px;
+			}
+			body.done .siren {
+				animation: none;
+				background: #154535;
+				border-color: #58bb92;
+			}
+			body.done .siren svg {
+				stroke: #83f4bf;
+			}
+			body.done .warning {
+				display: none;
+			}
+			body.done .reveal {
+				display: block;
+			}
+			@keyframes pulse {
+				0%,
+				100% {
+					box-shadow: 0 0 0 0 #ff2b4b77;
+					transform: scale(1);
+				}
+				50% {
+					box-shadow: 0 0 0 15px #ff2b4b00;
+					transform: scale(1.05);
+				}
+			}
+			@keyframes blink {
+				50% {
+					opacity: 0.1;
+				}
+			}
+			@media (prefers-reduced-motion: reduce) {
+				*,
+				*:before,
+				*:after {
+					animation: none !important;
+					transition: none !important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<main class="panel" role="main">
+			<div class="siren" aria-hidden="true">
+				<svg
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="#fff"
+					stroke-width="2.1"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path
+						d="M10.3 3.9 2 18.1A2 2 0 0 0 3.7 21h16.6a2 2 0 0 0 1.7-2.9L13.7 3.9a2 2 0 0 0-3.4 0Z"
+					/>
+					<path d="M12 9v4m0 4h.01" />
+				</svg>
+			</div>
+			<section class="warning" id="warning">
+				<div class="eyebrow">SECURITY ALERT · تنبيه أمني</div>
+				<h1> يتم اختراق جهازك!</h1>
+				<p>
+                    جاري الاختراق! يتم تنزيل ملف ضار إلى جهازك...
+
+                </p>
+				<div class="status">
+					<p>
+						<span class="dot"></span
+						><span id="status">جارٍ تنزيل الفيروس...</span>
+					</p>
+					<p>حالة التنزيل: <strong id="state">نشط</strong></p>
+				</div>
+				<div class="bar" aria-hidden="true">
+					<div class="fill" id="fill"></div>
+				</div>
+				<div class="progress" id="progress">0%</div>
+				<button class="stop" id="revealNow" type="button">ما الذي يحدث؟</button>
+			</section>
+			<section class="reveal" id="reveal" aria-live="polite">
+				<h2>هذه تجربة توعوية! ✓</h2>
+				<p>
+					لم يتم اختراق جهازك، ولم نحمّل أي ملفات أو نجمع أي بيانات. هذه الصفحة
+					محاكاة فقط.
+				</p>
+				<p>
+					<strong>الدرس:</strong> قبل فتح رابط أو رمز QR، تحققي من الوجهة، ولا
+					تدخلي معلوماتك أو تمنحي صلاحيات لموقع غير موثوق.
+				</p>
+			</section>
+			<div class="simulation">عرض توعوي تمثيلي · لا يحدث أي تنزيل فعلي</div>
+		</main>
+		<script>
+			(() => {
+				const fill = document.getElementById("fill"),
+					progress = document.getElementById("progress"),
+					status = document.getElementById("status");
+				const messages = [
+					"جارٍ تنزيل الفيروس...",
+					"تحذير: تنزيل ملف غير معروف...",
+					"جارٍ إكمال التنزيل...",
+				];
+				let value = 0,
+					done = false;
+				const reveal = () => {
+					if (done) return;
+					done = true;
+					document.body.classList.add("done");
+					clearInterval(timer);
+				};
+				document.getElementById("revealNow").addEventListener("click", reveal);
+				const timer = setInterval(() => {
+					value = Math.min(value + 5, 100);
+					fill.style.width = value + "%";
+					progress.textContent = value + "%";
+					status.textContent = messages[Math.min(Math.floor(value / 35), 2)];
+					if (value >= 100) reveal();
+				}, 1000);
+				setTimeout(reveal, 20000);
+			})();
+		</script>
+	</body>
+</html>
